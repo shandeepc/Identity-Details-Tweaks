@@ -9,8 +9,8 @@
 ## Installation
 * Simply drag and drop the plugin to install it
  
-![image](https://github.com/shandeepc/Announcement/assets/42472392/70ba6aa3-2585-496d-8b25-f629dc33962e)
-![image](https://github.com/shandeepc/Announcement/assets/42472392/b33968f5-ae3f-4905-ac90-ac1a00bfa4bc)
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/276dc488-81f9-4e82-8f52-c1e9a21ccfca)
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/2974505d-9828-4328-85ea-31700d1a50b6)
 
 ## Configuration
 *	Click on ‘configure’ button on the plugin to open the Plugin Configuration
@@ -19,7 +19,7 @@
 *	Disable Entitlement Details – Check to disable Entitlement Details in Access page
 *	Click Save button at the bottom to save the configuration.
 
-![image](https://github.com/shandeepc/Announcement/assets/42472392/e71bbb48-c3c6-492a-85bf-207cec356c1e)
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/358ea97a-3a2b-446c-bb7b-246acc6d1035)
 
 ## Verification
 *	Navigate to View Identity Page and click on Access, Accounts & Passwords tabs to view the changes.

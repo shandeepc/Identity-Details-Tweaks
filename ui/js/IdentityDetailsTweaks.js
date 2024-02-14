@@ -1,5 +1,11 @@
+/*
+Project - Identity Details Tweaks
+Version - 1.0
+Author - Shandeep - https://www.linkedin.com/in/shandeepsrinivas/
+*/
+
 function customLog(logString) {
-    if(debugMode)
+    if (debugMode)
         console.log(logString);
 }
 
@@ -32,7 +38,25 @@ function identityDetailsTweaksObserverForMutation2(selector) {
         const observer = new MutationObserver(mutations => {
             if (document.querySelector(selector)) {
                 resolve(document.querySelector(selector));
-                //observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
+function identityDetailsTweaksObserverForMutation3(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
             }
         });
 
@@ -52,72 +76,61 @@ async function identityDetailsTweaksExec(settings) {
     customLog("appsToHide - " + appsToHide);
     customLog("disableDetailsActionButton - " + disableDetailsActionButton);
     customLog("disableEntLinks - " + disableEntLinks);
+    if (appsToHide) {
+        let oldXHROpen = window.XMLHttpRequest.prototype.open;
+        window.XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
+            this.addEventListener('load', function () {
+                customLog('url: ' + url);
+                var res = this.response;
+                Object.defineProperty(this, 'response', { writable: true });
+                Object.defineProperty(this, 'responseText', { writable: true });
 
-    let oldXHROpen = window.XMLHttpRequest.prototype.open;
-    window.XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
-        // do something with the method, url and etc.
-        this.addEventListener('load', function () {
+                if (url.includes("/links/?") || url.includes("/access/identityEntitlements?")) {
+                    customLog("Calling links or identityEntitlements..");
+                    var jsonResponse = JSON.parse(res);
+                    customLog('before: ' + JSON.stringify(jsonResponse));
+                    var objects = jsonResponse.objects;
 
-            // do something with the response text
-            customLog('url: ' + url);
-            var res = this.response;
-            //customLog('response: ' + this.response);
-            //customLog('responseText: ' + this.responseText);
-            //customLog('responseType: ' + this.responseType);
-            Object.defineProperty(this, 'response', { writable: true });
-            Object.defineProperty(this, 'responseText', { writable: true });
-
-            if (url.includes("/links/?") || url.includes("/access/identityEntitlements?")) {
-                customLog("Calling links or identityEntitlements..");
-                var jsonResponse = JSON.parse(res);
-                customLog('before: ' + JSON.stringify(jsonResponse));
-                var objects = jsonResponse.objects;
-                //customLog('objects before len: ' + objects.length);
-
-                for (var i = objects.length - 1; i >= 0; i--) {
-                    for(let appToHide of appsToHide.split(',')) {
-                        if (((objects[i].applicationName) && (objects[i].applicationName === appToHide)) || ((objects[i].application) && (objects[i].application === appToHide))) {
-                            customLog("removing - " + objects.splice(i, 1));
-                            break;
+                    for (var i = objects.length - 1; i >= 0; i--) {
+                        for (let appToHide of appsToHide.split(',')) {
+                            if (((objects[i].applicationName) && (objects[i].applicationName === appToHide)) || ((objects[i].application) && (objects[i].application === appToHide))) {
+                                customLog("removing - " + objects.splice(i, 1));
+                                break;
+                            }
                         }
                     }
+
+                    let computedCount = 0;
+                    let paramArray = url.split("?");
+                    if (paramArray.length > 1) {
+                        let params = paramArray[1];
+                        let paramsArray = params.split('&');
+                        for (let p of paramsArray) {
+                            if (p.includes('limit=') || p.includes('start=')) {
+                                computedCount = computedCount + Number(p.split('=')[1]);
+                            }
+                        }
+                    }
+
+                    if (objects.length == 0 && url.includes("applicationOrNameOrValue")) {
+                        jsonResponse.count = objects.length;
+                    } else if (objects.length == 0 && computedCount >= jsonResponse.count) {
+                        jsonResponse.count = objects.length;
+                    } else if (objects.length == 0 && jsonResponse.count != 0) {
+                        objects[0] = JSON.parse('{"accountId": "", "actionStatus": null, "applicationName": "", "approvalStatus": null, "attributes": null, "id": "123", "identityId": "123", "lastRefresh": 1706000390708, "passwordChangeDate": null, "passwordChangeErrors": null, "passwordPolicy": ["Password must have at least 1 letter(s)", "Password must have at most 6 character(s)", "Password must have at least 1 lowercase letter(s)", "Password must have at least 6 character(s)", "Password must have at least 1 special character(s)", "Password must have at least 1 digit(s)", "Password must have at least 1 uppercase letter(s)"], "requiresCurrentPassword": false, "status": "ACTIVE"}');
+                        identityDetailsTweaksObserverForMutation(".data-table, panel").then((elm) => {
+                            customLog("Clicking next..")
+                            $("a[aria-label='Next Page']").click()
+                        });
+
+                    }
+                    jsonResponse.objects = objects;
+                    res = jsonResponse;
                 }
-
-                let computedCount = 0;
-                let paramArray = url.split("?");
-                if(paramArray.length > 1) {
-                	let params = paramArray[1];
-                	let paramsArray = params.split('&');
-                	for(let p of paramsArray) {
-                		if(p.includes('limit=') || p.includes('start=')) {
-                			computedCount = computedCount + Number(p.split('=')[1]);
-                		}
-                	}
-                }
-
-                if (objects.length == 0 && url.includes("applicationOrNameOrValue")) {
-                    jsonResponse.count = objects.length;
-                } else if (objects.length == 0 && computedCount >= jsonResponse.count) {
-                    jsonResponse.count = objects.length;
-                } else if (objects.length == 0 && jsonResponse.count != 0) {
-                    objects[0] = JSON.parse('{"accountId": "", "actionStatus": null, "applicationName": "", "approvalStatus": null, "attributes": null, "id": "123", "identityId": "123", "lastRefresh": 1706000390708, "passwordChangeDate": null, "passwordChangeErrors": null, "passwordPolicy": ["Password must have at least 1 letter(s)", "Password must have at most 6 character(s)", "Password must have at least 1 lowercase letter(s)", "Password must have at least 6 character(s)", "Password must have at least 1 special character(s)", "Password must have at least 1 digit(s)", "Password must have at least 1 uppercase letter(s)"], "requiresCurrentPassword": false, "status": "ACTIVE"}');
-                    identityDetailsTweaksObserverForMutation(".data-table, panel").then((elm) => {
-                        customLog("Clicking next..")
-                        $("a[aria-label='Next Page']").click()
-                    });
-
-                }
-
-
-                jsonResponse.objects = objects;
-                //jsonResponse.count = objects.length
-                //customLog('after: ' + JSON.stringify(jsonResponse));
-                res = jsonResponse;
-            }
-            //customLog('after: ' + JSON.stringify(res));
-            this.response = this.response = res;
-        });       
-        return oldXHROpen.apply(this, arguments);
+                this.response = this.response = res;
+            });
+            return oldXHROpen.apply(this, arguments);
+        }
     }
 
     const domObserver = new MutationObserver((mutationList) => {
@@ -125,16 +138,16 @@ async function identityDetailsTweaksExec(settings) {
             customLog("Starting Iterating mutationList...");
             customLog("Mutation type - " + mutation.type);
             customLog("addedNodes - " + mutation.addedNodes);
-				customLog("attributeName - " + mutation.attributeName);
-				customLog("nextSibling - " + mutation.nextSibling);
-				customLog("removedNodes  - " + mutation.removedNodes );
-				customLog("target   - " + mutation.target);
-                for(let added of mutation.addedNodes) {
-                    customLog("added - " + added.outerHTML);
-                }
-                for(let removed of mutation.removedNodes) {
-                    customLog("removed - " + removed.outerHTML);
-                }
+            customLog("attributeName - " + mutation.attributeName);
+            customLog("nextSibling - " + mutation.nextSibling);
+            customLog("removedNodes  - " + mutation.removedNodes);
+            customLog("target   - " + mutation.target);
+            for (let added of mutation.addedNodes) {
+                customLog("added - " + added.outerHTML);
+            }
+            for (let removed of mutation.removedNodes) {
+                customLog("removed - " + removed.outerHTML);
+            }
             if (mutation.type === "childList" && mutation.removedNodes.length > 0) {
                 if (mutation.removedNodes[0].outerHTML && mutation.removedNodes[0].outerHTML.includes("Loading Data ...")) {
                     identityDetailsTweaksObserverForMutation2("tbody").then((elm) => {
@@ -163,35 +176,51 @@ async function identityDetailsTweaksExec(settings) {
             customLog("Starting Iterating mutationList...");
             customLog("Mutation type - " + mutation.type);
             customLog("addedNodes - " + mutation.addedNodes);
-				customLog("attributeName - " + mutation.attributeName);
-				customLog("nextSibling - " + mutation.nextSibling);
-				customLog("removedNodes  - " + mutation.removedNodes );
-				customLog("target   - " + mutation.target);
-                for(let added of mutation.addedNodes) {
-                    customLog("added - " + added.outerHTML);
+            customLog("attributeName - " + mutation.attributeName);
+            customLog("nextSibling - " + mutation.nextSibling);
+            customLog("removedNodes  - " + mutation.removedNodes);
+            customLog("target   - " + mutation.target);
+            for (let added of mutation.addedNodes) {
+                customLog("added - " + added.outerHTML);
+            }
+            for (let removed of mutation.removedNodes) {
+                customLog("removed - " + removed.outerHTML);
+            }
+
+            if (disableDetailsActionButton) {
+                customLog("Hiding Details Action Button");
+                jQuery("sp-details-button").remove();
+            }
+            if (disableEntLinks) {
+                customLog("Disabling Entitlement Links..");
+                for (let linkObj of $("span[ng-if='ctrl.isGroupAttribute()']")) {
+                    customLog("linkObj - " + linkObj);
+                    if (linkObj.childNodes[1].text)
+                        linkObj.replaceChild(document.createTextNode(linkObj.childNodes[1].text), linkObj.childNodes[1])
                 }
-                for(let removed of mutation.removedNodes) {
-                    customLog("removed - " + removed.outerHTML);
-                }
-                        
-                        if (disableDetailsActionButton) {
-                            customLog("Hiding Details Action Button");
-                            jQuery("sp-details-button").remove();
-                        }
-                        if (disableEntLinks) {
-                            customLog("Disabling Entitlement Links..");
-                            for (let linkObj of $("span[ng-if='ctrl.isGroupAttribute()']")) {
-                                customLog("linkObj - " + linkObj);
-                                if (linkObj.childNodes[1].text)
-                                    linkObj.replaceChild(document.createTextNode(linkObj.childNodes[1].text), linkObj.childNodes[1])
-                            }
-                        }
+            }
             customLog("Exiting Iterating mutationList...");
         }
         domObserver.observe(document.body, { childList: true, subtree: true });
     });
     identityDetailsTweaksObserverForMutation2("tbody").then((elm) => {
         domObserver2.observe($("tbody")[0], { childList: true, subtree: true });
+        if (disableDetailsActionButton) {
+            customLog("Hiding Details Action Button");
+            jQuery("sp-details-button").remove();
+        }
+        if (disableEntLinks) {
+            customLog("Disabling Entitlement Links..");
+            for (let linkObj of $("span[ng-if='ctrl.isGroupAttribute()']")) {
+                customLog("linkObj - " + linkObj);
+                if (linkObj.childNodes[1].text)
+                    linkObj.replaceChild(document.createTextNode(linkObj.childNodes[1].text), linkObj.childNodes[1])
+            }
+        }
+    });
+
+    identityDetailsTweaksObserverForMutation3(".identity-details-container").then((elm) => {
+        domObserver2.observe($(".identity-details-container")[0], { childList: true, subtree: true });
         if (disableDetailsActionButton) {
             customLog("Hiding Details Action Button");
             jQuery("sp-details-button").remove();
@@ -226,6 +255,6 @@ fetch(PluginHelper.getPluginRestUrl('IdentityDetailsTweaks/getConfiguration'), r
 }).then(data => {
     identityDetailsTweaksExec(data);
 }).catch(error => {
-        console.error('Error:', error);
+    console.error('Error:', error);
 });
 

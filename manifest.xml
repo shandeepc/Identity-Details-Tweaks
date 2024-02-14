@@ -14,7 +14,7 @@
       <entry key="settings">
        <value>
          <List>
-         <Setting dataType="string" helpText="Comma seperated Application Names to hide (E.g - AD,HRMS,Azure)" label="Application Names To Hide" name="appsToHide" defaultValue="Lysandra"/>
+         <Setting dataType="string" helpText="Comma seperated Application Names to hide (E.g - AD,HRMS,Azure)" label="Application Names To Hide" name="appsToHide"/>
            <Setting dataType="boolean" helpText="Check to disable the Details Action Button in Accounts and Passwords page" label="Disable Details Action Button" name="disableDetailsActionButton" defaultValue="true"/>
            <Setting dataType="boolean" helpText="Check to disable Entitlement Details in Access page" label="Disable Entitlement Details" name="disableEntLinks" defaultValue="true"/>
          </List>

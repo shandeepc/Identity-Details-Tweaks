@@ -6,6 +6,11 @@
 ### Supported Browsers: - Any Chromium or Firefox browser (Internet Explorer not supported)
 ### Primary function: - This plugin can be used to tweak Identity Details Page - Access, Accounts & Passwords
 
+## Features
+1. Disable the **Details Action Button** - Clicking this shows the whole account schema to the users, This shows way too much details about the account and sometimes also exposes sensitive information.
+2. Disable the **Entitlement Details Dialog Box** - Clicking this shows the whole entitlement schema to the user and also members of the entitlement.
+3. Hide Applications in Access, Accounts and Passwords page - Hide applications that are not meant to be seen by end users. (e.g) HRMS application or Logical Applications
+
 ## Installation
 * Simply drag and drop the plugin to install it
  
@@ -24,8 +29,26 @@
 ## Verification
 *	Navigate to View Identity Page and click on Access, Accounts & Passwords tabs to view the changes.
 
-![image](https://github.com/shandeepc/Announcement/assets/42472392/48d8e9cf-793a-4f27-ac0f-a84f1d4c0b3c)
-![image](https://github.com/shandeepc/Announcement/assets/42472392/7955ad75-9086-4e2a-a53a-a0b17242b8f2)
+### Accounts Tab,
+Before/OOTB,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/81070960-89dc-4fb6-8526-2abbc8856953)
+
+After,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/aab25c54-8aae-46b1-854c-be14cfe40100)
+
+### Passwords Tab,
+Before/OOTB,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/cdad94ca-c2a0-43cd-918d-80ab38c1ee85)
+
+After,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/8af70fa1-415e-4f08-ba41-60bb5cc80561)
+
+### Access Tab,
+Before/OOTB,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/031f3b39-a172-4c1b-804d-8b8698ed4130)
+
+After,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/f3a25824-37c6-44f5-8105-94de5076e99c)
 
 ## Feedback
 *	For bugs, feature enhancement requests, issues, or questions please contact me on [LinkedIn](https://www.linkedin.com/in/shandeepsrinivas/) or [c.shandeep@gmail.com](mailto:c.shandeep@gmail.com)

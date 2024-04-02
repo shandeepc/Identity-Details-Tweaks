@@ -1,3 +1,5 @@
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/a004b372-c202-4491-a8c8-7d99e852855c)
+
 # Identity Details Tweaks
 
 ### Plugin Name: - Identity Details Tweaks
@@ -21,20 +23,28 @@
 ## Installation
 * Simply drag and drop the plugin to install it
  
-![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/276dc488-81f9-4e82-8f52-c1e9a21ccfca)
-![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/2974505d-9828-4328-85ea-31700d1a50b6)
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/b07768af-ee6a-4a3e-a770-21c4867e8b4a)
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/f0221396-ba49-4a2f-bcf5-4e636a4185cb)
 
 ## Configuration
-*	Click on ‘configure’ button on the plugin to open the Plugin Configuration
-*	Application Names To Hide – Comma seperated Application Names to hide (E.g - AD,HRMS,Azure)
+*	Click on ‘Configure’ button on the plugin to open the Plugin Configuration
+*	Application Names To Hide – Select Application Names to hide form the drop down
+*	Identity Attributes To Hide – Select Identity Attributes to hide form the drop down
 *	Disable Details Action Button – Check to disable the Details Action Button in Accounts and Passwords page
 *	Disable Entitlement Details – Check to disable Entitlement Details in Access page
 *	Click Save button at the bottom to save the configuration.
 
-![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/358ea97a-3a2b-446c-bb7b-246acc6d1035)
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/217df3f6-535a-4b34-a31e-84430ef0b342)
 
 ## Verification
-*	Navigate to View Identity Page and click on Access, Accounts & Passwords tabs to view the changes.
+*	Navigate to View Identity Page and click on Attribute, Access, Accounts & Passwords tabs to view the changes.
+
+### Attributes Tab,
+Before/OOTB,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/6370ae37-fc57-4186-abb6-ac9e3c9dbc25)
+
+After,
+![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/97f34435-3767-4dd9-bdd4-4ac567db520b)
 
 ### Accounts Tab,
 Before/OOTB,

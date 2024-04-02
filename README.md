@@ -1,15 +1,22 @@
 # Identity Details Tweaks
 
 ### Plugin Name: - Identity Details Tweaks
-### Plugin Version: - 1.0
+### Plugin Version: - 2.0
 ### Supported version: - Identity IQ 8.0 or above 
 ### Supported Browsers: - Any Chromium or Firefox browser (Internet Explorer not supported)
-### Primary function: - This plugin can be used to tweak Identity Details Page - Access, Accounts & Passwords
+### Primary function: - This plugin can be used to tweak Identity Details Page - Attributes, Access, Accounts & Passwords
 
 ## Features
 1. Disable the **Details Action Button** - Clicking this shows the whole account schema to the users, This shows way too much details about the account and sometimes also exposes sensitive information.
 2. Disable the **Entitlement Details Dialog Box** - Clicking this shows the whole entitlement schema to the user and also members of the entitlement.
-3. Hide Applications in Access, Accounts and Passwords page - Hide applications that are not meant to be seen by end users. (e.g) HRMS application or Logical Applications
+3. Hide Applications in Access, Accounts and Passwords page - Hide applications that are not meant to be seen by end users. (e.g) HRMS Application or Logical Applications
+4. Hide Identity Attributes in Attributes page - This can be used to Hide Identity Attributes for the End Users but visible for System Administrators. This overrides the identityViewAttributes
+5. Users with System Administrator & Identity Details Tweaks Admin Capability can bypass above tweaks.
+
+## New In Version 2.0
+1. Added 'Identity Attributes To Hide'.
+2. Added IIQ Form based UI for Plugin Configuration.
+3. Users with System Administrator & Identity Details Tweaks Admin Capability are not impacted by the plugin configuration.  
 
 ## Installation
 * Simply drag and drop the plugin to install it

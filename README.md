@@ -44,6 +44,7 @@ Before/OOTB,
 ![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/6370ae37-fc57-4186-abb6-ac9e3c9dbc25)
 
 After,
+
 ![image](https://github.com/shandeepc/Identity-Details-Tweaks/assets/42472392/97f34435-3767-4dd9-bdd4-4ac567db520b)
 
 ### Accounts Tab,
